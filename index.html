@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>EduSecure - Đề Thi Công Nghệ (Bản Offline Chống Gian Lận)</title>
+  <style>
+    /* 100% PURE EMBEDDED CSS - HOẠT ĐỘNG HOÀN TOÀN OFFLINE KHÔNG CẦN INTERNET */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: #f0f7ff;
+      background-image: linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 50%, #f0f7ff 100%);
+      color: #1e293b;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.5;
+    }
+    .hidden {
+      display: none !important;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 14px;
+      width: 100%;
+      flex: 1;
+    }
+    /* Header */
+    header {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid #bae6fd;
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .header-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .brand-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, #0284c7, #2563eb);
+      color: white;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 900;
+    }
+    .brand-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: #0f172a;
+    }
+    .badge-offline {
+      background: #e0f2fe;
+      color: #0369a1;
+      border: 1px solid #7dd3fc;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      margin-left: 6px;
+    }
+
+    /* Cards */
+    .card {
+      background: #ffffff;
+      border: 1px solid #bae6fd;
+      border-radius: 20px;
+      padding: 18px;
+      box-shadow: 0 2px 6px rgba(186, 230, 253, 0.25);
+      margin-bottom: 16px;
+    }
+    .hero-banner {
+      background: linear-gradient(135deg, #0284c7 0%, #2563eb 50%, #4338ca 100%);
+      color: #ffffff;
+      border-radius: 24px;
+      padding: 22px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 14px rgba(2, 132, 199, 0.3);
+    }
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .hero-title {
+      font-size: 20px;
+      font-weight: 800;
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+    .hero-desc {
+      font-size: 12px;
+      color: #e0f2fe;
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+    .hero-rules {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+    @media (min-width: 600px) {
+      .hero-rules {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    .rule-box {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-size: 11px;
+    }
+    .rule-box strong {
+      display: block;
+      color: #fef08a;
+      margin-bottom: 2px;
+    }
+
+    /* Inputs */
+    .form-group {
+      margin-bottom: 12px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      color: #475569;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+    }
+    .form-input {
+      width: 100%;
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 13px;
+      color: #0f172a;
+      outline: none;
+      transition: all 0.2s;
+    }
+    .form-input:focus {
+      background: #ffffff;
+      border-color: #0284c7;
+      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    @media (min-width: 600px) {
+      .form-grid {
+        grid-template-columns: 1.5fr 1fr 1fr;
+      }
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 16px;
+      border-radius: 14px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: all 0.15s ease;
+      text-decoration: none;
+    }
+    .btn:active {
+      transform: scale(0.97);
+    }
+    .btn-primary {
+      background: #0284c7;
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(2, 132, 199, 0.3);
+    }
+    .btn-primary:hover {
+      background: #0369a1;
+    }
+    .btn-success {
+      background: #059669;
+      color: #ffffff;
+    }
+    .btn-success:hover {
+      background: #047857;
+    }
+    .btn-danger {
+      background: #e11d48;
+      color: #ffffff;
+    }
+    .btn-light {
+      background: #f1f5f9;
+      color: #334155;
+      border: 1px solid #cbd5e1;
+    }
+
+    /* Exam Status Bar */
+    .exam-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      background: #ffffff;
+      border: 1px solid #bae6fd;
+      border-radius: 16px;
+      padding: 10px 14px;
+      margin-bottom: 12px;
+      position: sticky;
+      top: 58px;
+      z-index: 30;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+    }
+    .strike-container {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .strike-pill {
+      font-family: monospace;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 7px;
+      border-radius: 6px;
+      background: #f1f5f9;
+      color: #64748b;
+      border: 1px solid #cbd5e1;
+    }
+    .strike-pill.active {
+      background: #f59e0b;
+      color: #ffffff;
+      border-color: #d97706;
+    }
+    .strike-pill.danger {
+      background: #e11d48;
+      color: #ffffff;
+      border-color: #be123c;
+      animation: pulse 1s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    .timer-pill {
+      font-family: monospace;
+      font-weight: 800;
+      font-size: 13px;
+      background: #e0f2fe;
+      color: #0369a1;
+      border: 1px solid #7dd3fc;
+      padding: 4px 10px;
+      border-radius: 10px;
+    }
+
+    /* Horizontal question slider */
+    .question-slider {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding: 6px 4px 8px 4px;
+      scrollbar-width: none;
+      margin-bottom: 12px;
+    }
+    .question-slider::-webkit-scrollbar {
+      display: none;
+    }
+    .q-btn {
+      width: 34px;
+      height: 34px;
+      flex-shrink: 0;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: monospace;
+      font-size: 12px;
+      font-weight: 800;
+      border: 1px solid #bae6fd;
+      background: #ffffff;
+      color: #334155;
+      cursor: pointer;
+    }
+    .q-btn.current {
+      background: #0284c7;
+      color: #ffffff;
+      border-color: #0284c7;
+      box-shadow: 0 0 0 2px #bae6fd;
+    }
+    .q-btn.answered {
+      background: #38bdf8;
+      color: #ffffff;
+      border-color: #0284c7;
+    }
+    .q-btn.forfeited {
+      background: #ffe4e6;
+      color: #e11d48;
+      border-color: #fda4af;
+      font-weight: 900;
+    }
+
+    /* Question Box */
+    .question-box {
+      background: #ffffff;
+      border: 1px solid #bae6fd;
+      border-radius: 20px;
+      padding: 18px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    }
+    .question-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #f1f5f9;
+      margin-bottom: 12px;
+    }
+    .q-badge {
+      background: #e0f2fe;
+      color: #0369a1;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 8px;
+      text-transform: uppercase;
+    }
+    .q-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #0f172a;
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+
+    /* Options */
+    .option-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid #e2e8f0;
+      background: #ffffff;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .option-item:hover {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+    }
+    .option-item.selected {
+      background: #e0f2fe;
+      border-color: #0284c7;
+      color: #0c4a6e;
+      font-weight: 600;
+    }
+    .option-item.forfeited {
+      background: #fff1f2;
+      border-color: #f43f5e;
+      color: #881337;
+    }
+    .opt-letter {
+      width: 26px;
+      height: 26px;
+      border-radius: 8px;
+      background: #f1f5f9;
+      color: #475569;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+    .option-item.selected .opt-letter {
+      background: #0284c7;
+      color: #ffffff;
+    }
+    .option-item.forfeited .opt-letter {
+      background: #e11d48;
+      color: #ffffff;
+    }
+    .opt-text {
+      flex: 1;
+      font-size: 13px;
+      padding-top: 2px;
+    }
+
+    /* True/False rows */
+    .tf-row {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 12px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      margin-bottom: 8px;
+    }
+    @media (min-width: 600px) {
+      .tf-row {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+    .tf-text {
+      font-size: 12px;
+      color: #1e293b;
+      flex: 1;
+    }
+    .tf-btns {
+      display: flex;
+      gap: 6px;
+    }
+    .tf-btn {
+      padding: 6px 14px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 800;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: #334155;
+      cursor: pointer;
+    }
+    .tf-btn.active-true {
+      background: #059669;
+      color: white;
+      border-color: #059669;
+    }
+    .tf-btn.active-false {
+      background: #e11d48;
+      color: white;
+      border-color: #e11d48;
+    }
+
+    /* Warning Banners */
+    .forfeited-banner {
+      background: #fff1f2;
+      border: 1px solid #fda4af;
+      color: #9f1239;
+      padding: 10px 14px;
+      border-radius: 14px;
+      font-size: 12px;
+      margin-bottom: 12px;
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    /* Sticky Bottom Bar on Mobile */
+    .mobile-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(8px);
+      border-top: 1px solid #bae6fd;
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      z-index: 35;
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
+    }
+    @media (min-width: 600px) {
+      .mobile-bar {
+        display: none;
+      }
+    }
+
+    /* Floating Simulation Dock */
+    .sim-dock {
+      position: fixed;
+      bottom: 60px;
+      right: 10px;
+      background: #ffffff;
+      border: 1px solid #bae6fd;
+      border-radius: 14px;
+      padding: 8px 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      z-index: 40;
+      font-size: 11px;
+      max-width: 200px;
+    }
+    @media (min-width: 600px) {
+      .sim-dock {
+        bottom: 14px;
+        right: 14px;
+      }
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px;
+      z-index: 50;
+    }
+    .modal-card {
+      background: #ffffff;
+      border-radius: 20px;
+      max-width: 380px;
+      width: 100%;
+      padding: 18px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    /* Result Box */
+    .result-score-badge {
+      font-size: 40px;
+      font-weight: 900;
+      font-family: monospace;
+      color: #0284c7;
+      text-align: center;
+      margin: 10px 0;
+    }
+    .result-score-badge.danger {
+      color: #e11d48;
+    }
+
+    /* Print styling */
+    @media print {
+      header, .mobile-bar, .sim-dock, .btn {
+        display: none !important;
+      }
+      body {
+        background: #ffffff !important;
+      }
+      .card {
+        box-shadow: none !important;
+        border: 1px solid #000000 !important;
+      }
+    }
+  </style>
+<script src="/_aistudio-iframe.js?v=6634132a"></script></head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+      <div class="brand">
+        <div class="brand-icon">🛡️</div>
+        <div>
+          <div style="display:flex; align-items:center;">
+            <span class="brand-title">EduSecure</span>
+            <span class="badge-offline">Bản Offline</span>
+          </div>
+          <div style="font-size:10px; color:#64748b;">Hệ thống thi trắc nghiệm chống gian lận</div>
+        </div>
+      </div>
+      <div id="student-badge" class="hidden" style="font-size:11px; background:#f0f9ff; padding:4px 8px; border-radius:8px; border:1px solid #bae6fd;">
+        <span id="badge-name" style="font-weight:700;">Học sinh</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <div class="container">
+
+    <!-- VIEW 1: LOBBY -->
+    <div id="view-lobby">
+      <div class="hero-banner">
+        <div class="hero-tag">
+          <span>🚨</span>
+          <span>QUY CHẾ GIÁM SÁT THỜI GIAN THỰC</span>
+        </div>
+        <h1 class="hero-title">Đề Thi Công Nghệ: Luyện Kim, Gia Công Cơ Khí & CNC</h1>
+        <p class="hero-desc">Đề thi chính thức của học sinh (Bài 3 & Bài 4 SGK) gồm 9 câu hỏi trắc nghiệm và đánh giá Đúng/Sai có hình ảnh máy cắt gọt minh họa.</p>
+        
+        <div class="hero-rules">
+          <div class="rule-box">
+            <strong>1. Thoát màn hình ở câu nào:</strong>
+            Mặc định câu đó bị <strong>chấm SAI (0 điểm)</strong>.
+          </div>
+          <div class="rule-box">
+            <strong>2. Thoát màn hình lần thứ 3:</strong>
+            <strong>ĐÌNH CHỈ THI và chấm 0 ĐIỂM toàn bài</strong>.
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 style="font-size:14px; font-weight:800; margin-bottom:12px; color:#0f172a;">📋 Thông Tin Thí Sinh Dự Thi</h2>
+        
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Họ và tên thí sinh *</label>
+            <input id="input-name" type="text" value="Nguyễn Văn An" class="form-input" placeholder="Nhập họ và tên...">
+          </div>
+          <div class="form-group">
+            <label>Số Báo Danh (SBD) *</label>
+            <input id="input-code" type="text" value="SBD-2026-089" class="form-input" placeholder="VD: SBD-089">
+          </div>
+          <div class="form-group">
+            <label>Lớp học</label>
+            <input id="input-class" type="text" value="11A1" class="form-input" placeholder="VD: 11A1">
+          </div>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid #f1f5f9; padding-top:14px; margin-top:8px;">
+          <div style="font-size:11px; color:#64748b;">
+            ⏱️ Thời gian: <strong>15 phút</strong> • 📝 <strong>9 câu</strong>
+          </div>
+          <button id="btn-start" class="btn btn-primary">
+            ▶️ Bắt Đầu Vào Thi
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 2: ACTIVE EXAM -->
+    <div id="view-exam" class="hidden">
+      <!-- Status bar -->
+      <div class="exam-bar">
+        <div class="strike-container">
+          <span style="font-size:11px; font-weight:700; color:#475569;">Vi phạm:</span>
+          <span class="strike-pill" id="strike-1">1/3</span>
+          <span class="strike-pill" id="strike-2">2/3</span>
+          <span class="strike-pill" id="strike-3">3/3</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <div class="timer-pill" id="timer-text">15:00</div>
+          <button id="btn-submit" class="btn btn-success" style="padding:6px 12px; font-size:11px;">
+            Nộp bài
+          </button>
+        </div>
+      </div>
+
+      <!-- Question slider -->
+      <div class="question-slider" id="question-slider"></div>
+
+      <!-- Forfeited alert -->
+      <div id="forfeit-banner" class="forfeited-banner hidden">
+        <span style="font-size:16px;">⚠️</span>
+        <div>
+          <strong style="color:#9f1239;">CÂU NÀY BỊ CHẤM SAI (0 ĐIỂM):</strong>
+          <div>Bạn đã thoát màn hình khi đang ở câu này. Điểm của câu này là 0 điểm theo quy chế.</div>
+        </div>
+      </div>
+
+      <!-- Question Box -->
+      <div class="question-box">
+        <div class="question-header">
+          <span class="q-badge" id="q-number-badge">Câu hỏi 1/9</span>
+          <span style="font-size:11px; color:#64748b;" id="q-subject-text">Bài 3</span>
+        </div>
+
+        <h2 class="q-title" id="q-title">Đang tải câu hỏi...</h2>
+
+        <!-- SVG illustration for Question 9 -->
+        <div id="q-svg-container" class="hidden" style="margin:12px 0; text-align:center;">
+          <svg viewBox="0 0 540 180" style="width:100%; max-width:440px; border-radius:12px; background:#f0f9ff; border:1px solid #bae6fd;" xmlns="http://www.w3.org/2000/svg">
+            <rect x="30" y="120" width="480" height="40" rx="5" fill="#334155" />
+            <rect x="50" y="90" width="90" height="35" rx="3" fill="#475569" />
+            <rect x="380" y="80" width="90" height="45" rx="3" fill="#475569" />
+            <rect x="140" y="110" width="240" height="12" fill="#64748b" />
+            <rect x="220" y="70" width="60" height="40" rx="2" fill="#0284c7" />
+            <rect x="140" y="85" width="100" height="16" fill="#cbd5e1" stroke="#94a3b8" stroke-width="2" />
+            <polygon points="245,90 265,78 265,102" fill="#f59e0b" stroke="#d97706" stroke-width="2" />
+            <circle cx="425" cy="50" r="14" fill="#fbcfe8" />
+            <rect x="417" y="38" width="16" height="8" rx="3" fill="#0284c7" />
+            <path d="M 410 65 C 410 60 440 60 440 65 L 442 100 L 408 100 Z" fill="#0284c7" />
+            <text x="270" y="25" text-anchor="middle" fill="#0369a1" font-size="11" font-weight="700">HÌNH 3.4: GIA CÔNG CẮT GỌT TRÊN MÁY TIỆN KIM LOẠI</text>
+          </svg>
+          <div style="font-size:10px; color:#64748b; font-style:italic; margin-top:4px;">Hình 3.4 – Máy gia công cắt gọt (trích SGK Công nghệ)</div>
+        </div>
+
+        <!-- Options Container -->
+        <div id="mc-options-container"></div>
+
+        <!-- True/False Container -->
+        <div id="tf-options-container" class="hidden"></div>
+
+        <!-- Desktop Prev/Next controls -->
+        <div style="display:none; justify-content:space-between; align-items:center; margin-top:16px; padding-top:12px; border-top:1px solid #f1f5f9;" id="desktop-nav">
+          <button id="btn-prev" class="btn btn-light" style="padding:6px 14px; font-size:12px;">◀ Câu trước</button>
+          <span style="font-family:monospace; font-size:12px; color:#64748b;" id="desktop-step">1 / 9</span>
+          <button id="btn-next" class="btn btn-primary" style="padding:6px 16px; font-size:12px;">Câu tiếp ▶</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 3: RESULT -->
+    <div id="view-result" class="hidden">
+      <div class="card" style="text-align:center;">
+        <span id="result-status-tag" style="background:#dcfce7; color:#15803d; padding:4px 10px; border-radius:999px; font-size:11px; font-weight:800; text-transform:uppercase;">
+          Hoàn Thành Bài Thi
+        </span>
+        <h2 id="result-name" style="font-size:20px; font-weight:900; color:#0f172a; margin-top:8px;">Nguyễn Văn An</h2>
+        <p id="result-meta" style="font-size:12px; color:#64748b;">SBD: SBD-089 • Lớp 11A1</p>
+        
+        <div id="result-score-box" class="result-score-badge">8.9/10</div>
+        
+        <div style="display:flex; justify-content:center; gap:16px; font-size:12px; color:#475569; margin-top:6px; border-top:1px solid #f1f5f9; padding-top:12px;">
+          <div>Số câu đúng: <strong id="res-correct" style="color:#059669;">8/9</strong></div>
+          <div>Số vi phạm: <strong id="res-violations" style="color:#e11d48;">0 lần</strong></div>
+        </div>
+
+        <div id="disqualified-box" class="hidden" style="margin-top:12px; padding:10px; background:#ffe4e6; border-radius:12px; border:1px solid #fda4af; color:#9f1239; font-size:11px;">
+          🚨 <strong>BÀI THI BỊ ĐÌNH CHỈ:</strong> Thí sinh vi phạm thoát màn hình đủ 3 lần. Điểm bài thi bị hủy về <strong>0.00 điểm</strong>.
+        </div>
+
+        <div style="margin-top:16px; display:flex; justify-content:center; gap:8px;">
+          <button onclick="window.print()" class="btn btn-light" style="font-size:12px;">🖨️ In Báo Cáo / PDF</button>
+          <button id="btn-restart" class="btn btn-primary" style="font-size:12px;">🔄 Thi Lại</button>
+        </div>
+      </div>
+
+      <!-- Detailed Review -->
+      <div id="review-list"></div>
+    </div>
+
+  </div>
+
+  <!-- STICKY MOBILE CONTROLS -->
+  <div class="mobile-bar" id="mobile-bar">
+    <button id="m-btn-prev" class="btn btn-light" style="flex:1; padding:8px;">◀ Trước</button>
+    <span id="m-step" style="font-family:monospace; font-size:12px; font-weight:700; color:#475569; padding:0 8px;">1/9</span>
+    <button id="m-btn-next" class="btn btn-primary" style="flex:1; padding:8px;">Tiếp ▶</button>
+  </div>
+
+  <!-- FLOATING SIMULATION TRIGGER -->
+  <div class="sim-dock" id="sim-dock">
+    <div style="font-weight:800; color:#0369a1; margin-bottom:2px;">🧪 Test Giám Sát</div>
+    <div style="font-size:9px; color:#64748b; margin-bottom:4px;">Giả lập học sinh thoát màn hình:</div>
+    <button id="btn-sim-exit" class="btn btn-danger" style="width:100%; padding:4px 6px; font-size:10px;">
+      🚨 Test: Thoát App
+    </button>
+  </div>
+
+  <!-- VIOLATION ALERT MODAL -->
+  <div class="modal-overlay hidden" id="modal-violation">
+    <div class="modal-card">
+      <div style="font-size:18px; margin-bottom:6px;">⚠️</div>
+      <h3 id="modal-title" style="font-size:14px; font-weight:800; color:#be123c; margin-bottom:6px;">
+        CẢNH BÁO THOÁT MÀN HÌNH
+      </h3>
+      <div style="background:#fff1f2; border:1px solid #fecdd3; border-radius:12px; padding:10px; font-size:11px; margin-bottom:10px; color:#881337;">
+        <div>Phát hiện: <strong id="modal-reason">Thoát màn hình sang ứng dụng khác</strong></div>
+        <div style="margin-top:4px; font-weight:700; color:#be123c;" id="modal-penalty">
+          Câu này bị tính 0 điểm
+        </div>
+      </div>
+      <p id="modal-desc" style="font-size:11px; color:#64748b; line-height:1.4; margin-bottom:12px;">
+        Quy chế: Thoát màn hình ở câu nào thì câu đó tính 0 điểm. Thoát màn hình đến lần thứ 3 sẽ bị <strong>HỦY THI 0 ĐIỂM</strong> toàn bài.
+      </p>
+      <button id="btn-ack-modal" class="btn btn-danger" style="width:100%;">
+        Tôi Đã Hiểu, Tiếp Tục Làm Bài
+      </button>
+    </div>
+  </div>
+
+  <!-- SCRIPT -->
+  <script>
+    const QUESTIONS = [
+      {
+        id: 1,
+        type: 'mc',
+        subject: 'Bài 3: Luyện kim',
+        question: 'Câu 01 (Bài 3). Công nghệ luyện kim có nhiệm vụ chủ yếu nào?',
+        options: [
+          'Biến điện năng thành ánh sáng',
+          'Điều chế kim loại, hợp kim để sử dụng hoặc phục vụ công nghệ khác',
+          'Truyền dữ liệu bằng sóng vô tuyến',
+          'Tạo chi tiết bằng cách đắp từng lớp'
+        ],
+        correct: 1,
+        exp: 'Nhiệm vụ chủ yếu của công nghệ luyện kim là điều chế kim loại và các hợp kim từ quặng hoặc phế liệu để phục vụ đời sống và sản xuất.'
+      },
+      {
+        id: 2,
+        type: 'mc',
+        subject: 'Bài 3: Luyện kim',
+        question: 'Câu 02 (Bài 3). Sản phẩm phổ biến của công nghệ luyện kim đen là gì?',
+        options: [
+          'Gang và thép',
+          'Nhựa và cao su',
+          'Đồng và vàng',
+          'Gốm và thủy tinh'
+        ],
+        correct: 0,
+        exp: 'Luyện kim đen sản xuất ra gang và thép (các hợp kim của sắt Fe với carbon).'
+      },
+      {
+        id: 3,
+        type: 'mc',
+        subject: 'Bài 3: Luyện kim',
+        question: 'Câu 03 (Bài 3). Công nghệ luyện kim màu tạo ra nhóm vật liệu nào?',
+        options: [
+          'Nhôm, đồng, vàng, chì và các kim loại màu khác',
+          'Gỗ và giấy',
+          'Bê tông và gạch',
+          'Gang và thép'
+        ],
+        correct: 0,
+        exp: 'Luyện kim màu điều chế các kim loại không chứa sắt (nhôm, đồng, chì, vàng,...) và các hợp kim của chúng.'
+      },
+      {
+        id: 4,
+        type: 'mc',
+        subject: 'Bài 3: Luyện kim',
+        question: 'Câu 4 (Bài 3). Vì sao gang, thép được xếp vào sản phẩm luyện kim đen?',
+        options: [
+          'Vì được chế tạo bằng công nghệ in 3D',
+          'Vì đều có màu đen trong mọi điều kiện',
+          'Vì chúng là vật liệu kim loại thuộc nhóm kim loại đen',
+          'Vì chỉ được dùng trong thiết bị điện tử'
+        ],
+        correct: 2,
+        exp: 'Gang và thép có thành phần nền tảng là sắt (Fe) - kim loại cơ bản của nhóm kim loại đen.'
+      },
+      {
+        id: 5,
+        type: 'mc',
+        subject: 'Bài 3: Gia công cơ khí',
+        question: 'Câu 5 (Bài 3). Điểm khác biệt cơ bản giữa đúc và gia công cắt gọt là gì?',
+        options: [
+          'Đúc tạo hình từ kim loại lỏng; cắt gọt loại bớt vật liệu của phôi',
+          'Đúc luôn cần dao cắt; cắt gọt luôn cần khuôn',
+          'Cắt gọt không tạo hình dạng chi tiết',
+          'Cả hai đều chỉ tạo liên kết hàn'
+        ],
+        correct: 0,
+        exp: 'Đúc rót kim loại lỏng vào khuôn để đông đặc; còn cắt gọt bóc tách từng lớp phoi để đạt kích thước yêu cầu.'
+      },
+      {
+        id: 6,
+        type: 'mc',
+        subject: 'Bài 3: Gia công đúc',
+        question: 'Câu 6 (Bài 3). Vì sao phải có khuôn trong nhiều phương pháp đúc?',
+        options: [
+          'Để truyền dữ liệu giữa các máy',
+          'Để biến kim loại thành điện năng',
+          'Để phát sáng cho chi tiết',
+          'Để định hình kim loại lỏng thành sản phẩm mong muốn'
+        ],
+        correct: 3,
+        exp: 'Lòng khuôn mang hình dáng sản phẩm cần tạo để định hình khối kim loại lỏng khi đông đặc.'
+      },
+      {
+        id: 7,
+        type: 'mc',
+        subject: 'Bài 4: Công nghệ số',
+        question: 'Câu 7 (Bài 4). Nhóm thiết kế đã có bản vẽ 3D của một chi tiết và muốn gia công bằng máy điều khiển số. Chuỗi công nghệ nào phù hợp?',
+        options: [
+          'Đúc → LED → Wi-Fi',
+          'CNC → luyện kim → Bluetooth',
+          'AI → hàn → thủy điện',
+          'CAD → CAM → CNC'
+        ],
+        correct: 3,
+        exp: 'Chuỗi tiêu chuẩn: CAD (thiết kế 3D) → CAM (lập trình đường chạy dao) → CNC (máy gia công tự động).'
+      },
+      {
+        id: 8,
+        type: 'mc',
+        subject: 'Bài 4: In 3D',
+        question: 'Câu 8 (Bài 4). Một nhóm cần tạo nhanh mô hình mẫu nhựa hình dạng phức tạp từ tệp thiết kế số. Công nghệ nào phù hợp nhất?',
+        options: [
+          'Kéo kim loại',
+          'In 3D',
+          'Hàn áp lực',
+          'Luyện kim đen'
+        ],
+        correct: 1,
+        exp: 'In 3D tạo mẫu nhanh (Rapid Prototyping) các vật thể nhựa phức tạp trực tiếp từ tệp thiết kế 3D.'
+      },
+      {
+        id: 9,
+        type: 'tf',
+        subject: 'Bài 3: Đúng / Sai',
+        question: 'Câu ĐS01. Quan sát hình minh họa máy gia công cắt gọt (Hình 3.4) và đánh giá các nhận định sau:',
+        statements: [
+          { key: 'a', text: 'a) Gia công cắt gọt loại bỏ một phần vật liệu khỏi phôi.', isTrue: true },
+          { key: 'b', text: 'b) Đúc và tiện đều tạo hình bằng cách rót kim loại lỏng vào khuôn.', isTrue: false },
+          { key: 'c', text: 'c) Để làm mỏng phôi kim loại bằng lực ép giữa các trục quay, xưởng có thể chọn cán.', isTrue: true },
+          { key: 'd', text: 'd) Để nối cố định hai thanh thép thành khung không tháo rời, xưởng nên ưu tiên tiện thay cho hàn.', isTrue: false }
+        ],
+        exp: 'a) Đúng (bóc tách phoi); b) Sai (tiện là gia công cắt gọt phôi rắn); c) Đúng (cán giữa các trục quay); d) Sai (nối cố định dùng hàn).'
+      }
+    ];
+
+    // State
+    let currentIdx = 0;
+    let student = { name: '', code: '', class: '' };
+    let userAnswers = {};
+    let strikes = [];
+    let remaining = 15 * 60;
+    let timer = null;
+    let isActive = false;
+    let lastViolation = 0;
+
+    // Elements
+    const viewLobby = document.getElementById('view-lobby');
+    const viewExam = document.getElementById('view-exam');
+    const viewResult = document.getElementById('view-result');
+    const mobileBar = document.getElementById('mobile-bar');
+    const simDock = document.getElementById('sim-dock');
+
+    // Safe Web Audio tone
+    function soundAlert(freq = 520) {
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        const ctx = new AudioCtx();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.frequency.setValueAtTime(freq, ctx.currentTime);
+        gain.gain.setValueAtTime(0.2, ctx.currentTime);
+        if (gain.gain.exponentialRampToValueAtTime) {
+          gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+        }
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.3);
+      } catch (e) {}
+    }
+
+    // Trigger Anti-Cheat Strike
+    function onViolation(reason = 'Thoát màn hình sang ứng dụng khác') {
+      if (!isActive) return;
+      const now = Date.now();
+      if (now - lastViolation < 1500) return;
+      lastViolation = now;
+
+      // Mark current question as forfeited (0 points)
+      if (!userAnswers[currentIdx]) {
+        userAnswers[currentIdx] = { choice: null, tf: {}, forfeited: true };
+      } else {
+        userAnswers[currentIdx].forfeited = true;
+      }
+
+      const count = strikes.length + 1;
+      strikes.push({ strike: count, q: currentIdx + 1, reason: reason });
+
+      soundAlert(count >= 3 ? 280 : 620);
+      updateStrikesUI();
+      renderSlider();
+
+      // Show alert modal
+      const modal = document.getElementById('modal-violation');
+      const title = document.getElementById('modal-title');
+      const reasonEl = document.getElementById('modal-reason');
+      const penaltyEl = document.getElementById('modal-penalty');
+      const descEl = document.getElementById('modal-desc');
+      const btnAck = document.getElementById('btn-ack-modal');
+
+      reasonEl.textContent = reason + ` (tại Câu #${currentIdx + 1})`;
+
+      if (count >= 3) {
+        title.textContent = '🚨 ĐÌNH CHỈ THI - VI PHẠM 3 LẦN!';
+        penaltyEl.textContent = 'HỦY BÀI THI - CHẤM 0 ĐIỂM TOÀN BÀI';
+        descEl.textContent = 'Bạn đã thoát màn hình đủ 3 lần. Bài thi lập tức bị đình chỉ và tính 0 điểm theo quy chế.';
+        btnAck.textContent = 'Xem Kết Quả Đình Chỉ 0 Điểm';
+      } else {
+        title.textContent = `⚠️ CẢNH BÁO VI PHẠM LẦN ${count}/3`;
+        penaltyEl.textContent = `Câu #${currentIdx + 1} ĐÃ BỊ TỰ ĐỘNG CHẤM SAI (0 ĐIỂM)`;
+        descEl.textContent = `Bạn còn ${3 - count} lần cơ hội. Thoát màn hình lần thứ 3 sẽ bị ĐÌNH CHỈ THI 0 ĐIỂM!`;
+        btnAck.textContent = 'Tôi Đã Hiểu, Làm Tiếp';
+      }
+      modal.classList.remove('hidden');
+    }
+
+    document.getElementById('btn-ack-modal').onclick = () => {
+      document.getElementById('modal-violation').classList.add('hidden');
+      if (strikes.length >= 3) {
+        submitExam(true);
+      } else {
+        renderQuestion();
+      }
+    };
+
+    // Auto listeners
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden && isActive) {
+        onViolation('Chuyển tab hoặc ẩn cửa sổ làm bài');
+      }
+    });
+    window.addEventListener('blur', () => {
+      if (isActive) {
+        onViolation('Thoát màn hình sang ứng dụng khác (Zalo, Google...)');
+      }
+    });
+
+    document.getElementById('btn-sim-exit').onclick = () => {
+      onViolation(`Giả lập học sinh thoát màn hình tại Câu #${currentIdx + 1}`);
+    };
+
+    // Start Exam
+    document.getElementById('btn-start').onclick = () => {
+      const name = document.getElementById('input-name').value.trim();
+      const code = document.getElementById('input-code').value.trim();
+      const cls = document.getElementById('input-class').value.trim();
+
+      if (!name || !code) {
+        alert('Vui lòng nhập họ tên và Số Báo Danh!');
+        return;
+      }
+
+      student = { name, code, class: cls || '11' };
+      document.getElementById('badge-name').textContent = `${name} (${code})`;
+      document.getElementById('student-badge').classList.remove('hidden');
+
+      currentIdx = 0;
+      userAnswers = {};
+      strikes = [];
+      remaining = 15 * 60;
+      isActive = true;
+
+      viewLobby.classList.add('hidden');
+      viewResult.classList.add('hidden');
+      viewExam.classList.remove('hidden');
+      mobileBar.style.display = 'flex';
+      simDock.classList.remove('hidden');
+      document.getElementById('desktop-nav').style.display = 'flex';
+
+      updateStrikesUI();
+      renderSlider();
+      renderQuestion();
+      startTimer();
+    };
+
+    function startTimer() {
+      clearInterval(timer);
+      timer = setInterval(() => {
+        remaining--;
+        const m = Math.floor(remaining / 60).toString().padStart(2, '0');
+        const s = (remaining % 60).toString().padStart(2, '0');
+        document.getElementById('timer-text').textContent = `${m}:${s}`;
+        if (remaining <= 0) {
+          clearInterval(timer);
+          submitExam(false);
+        }
+      }, 1000);
+    }
+
+    function updateStrikesUI() {
+      for (let i = 1; i <= 3; i++) {
+        const el = document.getElementById(`strike-${i}`);
+        if (i <= strikes.length) {
+          el.className = (i === 3) ? 'strike-pill danger' : 'strike-pill active';
+        } else {
+          el.className = 'strike-pill';
+        }
+      }
+    }
+
+    function renderSlider() {
+      const slider = document.getElementById('question-slider');
+      slider.innerHTML = '';
+      QUESTIONS.forEach((q, idx) => {
+        const btn = document.createElement('div');
+        const a = userAnswers[idx];
+        const isCurrent = idx === currentIdx;
+        const isForfeited = !!a?.forfeited;
+        const isAnswered = a && (a.choice !== null || (a.tf && Object.keys(a.tf).length > 0));
+
+        let cls = 'q-btn';
+        if (isCurrent) cls += ' current';
+        else if (isForfeited) cls += ' forfeited';
+        else if (isAnswered) cls += ' answered';
+
+        btn.className = cls;
+        btn.textContent = isForfeited ? '0đ' : (idx + 1);
+        btn.onclick = () => {
+          currentIdx = idx;
+          renderQuestion();
+          renderSlider();
+        };
+        slider.appendChild(btn);
+      });
+    }
+
+    function renderQuestion() {
+      const q = QUESTIONS[currentIdx];
+      const a = userAnswers[currentIdx];
+      const isForfeited = !!a?.forfeited;
+
+      document.getElementById('q-number-badge').textContent = `Câu hỏi ${currentIdx + 1}/9`;
+      document.getElementById('q-subject-text').textContent = q.subject;
+      document.getElementById('q-title').textContent = q.question;
+      document.getElementById('desktop-step').textContent = `${currentIdx + 1} / 9`;
+      document.getElementById('m-step').textContent = `${currentIdx + 1} / 9`;
+
+      const forfeitBanner = document.getElementById('forfeit-banner');
+      if (isForfeited) forfeitBanner.classList.remove('hidden');
+      else forfeitBanner.classList.add('hidden');
+
+      const svgBox = document.getElementById('q-svg-container');
+      const mcBox = document.getElementById('mc-options-container');
+      const tfBox = document.getElementById('tf-options-container');
+
+      if (q.type === 'tf') {
+        svgBox.classList.remove('hidden');
+        mcBox.classList.add('hidden');
+        tfBox.classList.remove('hidden');
+        renderTF(q, a);
+      } else {
+        svgBox.classList.add('hidden');
+        mcBox.classList.remove('hidden');
+        tfBox.classList.add('hidden');
+        renderMC(q, a);
+      }
+
+      document.getElementById('btn-prev').disabled = (currentIdx === 0);
+      document.getElementById('m-btn-prev').disabled = (currentIdx === 0);
+    }
+
+    function renderMC(q, a) {
+      const box = document.getElementById('mc-options-container');
+      box.innerHTML = '';
+      q.options.forEach((opt, optIdx) => {
+        const letter = String.fromCharCode(65 + optIdx);
+        const isSelected = (a?.choice === optIdx);
+        const isForfeited = !!a?.forfeited;
+
+        const row = document.createElement('div');
+        let cls = 'option-item';
+        if (isSelected) cls += isForfeited ? ' forfeited selected' : ' selected';
+        row.className = cls;
+
+        row.innerHTML = `
+          <div class="opt-letter">${letter}</div>
+          <div class="opt-text">${opt}</div>
+          ${isSelected ? `<span style="color:${isForfeited ? '#e11d48' : '#0284c7'}; font-weight:800;">✓</span>` : ''}
+        `;
+
+        row.onclick = () => {
+          if (!userAnswers[currentIdx]) userAnswers[currentIdx] = { choice: optIdx, tf: {}, forfeited: false };
+          else userAnswers[currentIdx].choice = optIdx;
+          renderQuestion();
+          renderSlider();
+        };
+        box.appendChild(row);
+      });
+    }
+
+    function renderTF(q, a) {
+      const box = document.getElementById('tf-options-container');
+      box.innerHTML = '<div style="font-size:12px; font-weight:700; color:#475569; margin-bottom:6px;">Chọn ĐÚNG hoặc SAI cho từng ý:</div>';
+      
+      q.statements.forEach((stmt) => {
+        const val = a?.tf?.[stmt.key];
+        const row = document.createElement('div');
+        row.className = 'tf-row';
+        row.innerHTML = `
+          <div class="tf-text">${stmt.text}</div>
+          <div class="tf-btns">
+            <button class="tf-btn ${val === true ? 'active-true' : ''}">ĐÚNG</button>
+            <button class="tf-btn ${val === false ? 'active-false' : ''}">SAI</button>
+          </div>
+        `;
+
+        const [btnT, btnF] = row.querySelectorAll('.tf-btn');
+        btnT.onclick = () => {
+          if (!userAnswers[currentIdx]) userAnswers[currentIdx] = { choice: null, tf: {}, forfeited: false };
+          userAnswers[currentIdx].tf[stmt.key] = true;
+          renderQuestion();
+          renderSlider();
+        };
+        btnF.onclick = () => {
+          if (!userAnswers[currentIdx]) userAnswers[currentIdx] = { choice: null, tf: {}, forfeited: false };
+          userAnswers[currentIdx].tf[stmt.key] = false;
+          renderQuestion();
+          renderSlider();
+        };
+
+        box.appendChild(row);
+      });
+    }
+
+    function goPrev() {
+      if (currentIdx > 0) {
+        currentIdx--;
+        renderQuestion();
+        renderSlider();
+      }
+    }
+    function goNext() {
+      if (currentIdx < QUESTIONS.length - 1) {
+        currentIdx++;
+        renderQuestion();
+        renderSlider();
+      }
+    }
+
+    document.getElementById('btn-prev').onclick = goPrev;
+    document.getElementById('m-btn-prev').onclick = goPrev;
+    document.getElementById('btn-next').onclick = goNext;
+    document.getElementById('m-btn-next').onclick = goNext;
+
+    document.getElementById('btn-submit').onclick = () => {
+      if (confirm('Xác nhận nộp bài thi ngay?')) {
+        submitExam(false);
+      }
+    };
+
+    function submitExam(disqualified = false) {
+      clearInterval(timer);
+      isActive = false;
+
+      let correct = 0;
+      QUESTIONS.forEach((q, idx) => {
+        const a = userAnswers[idx];
+        if (!a || a.forfeited) return;
+
+        if (q.type === 'tf') {
+          const allOk = q.statements.every(s => a.tf && a.tf[s.key] === s.isTrue);
+          if (allOk) correct++;
+        } else {
+          if (a.choice === q.correct) correct++;
+        }
+      });
+
+      let score = disqualified ? 0 : Number(((correct / QUESTIONS.length) * 10).toFixed(1));
+
+      viewExam.classList.add('hidden');
+      mobileBar.style.display = 'none';
+      simDock.classList.add('hidden');
+      viewResult.classList.remove('hidden');
+
+      document.getElementById('result-name').textContent = student.name;
+      document.getElementById('result-meta').textContent = `SBD: ${student.code} • Lớp ${student.class}`;
+      document.getElementById('result-score-box').textContent = `${score.toFixed(1)}/10`;
+      document.getElementById('res-correct').textContent = `${correct}/${QUESTIONS.length}`;
+      document.getElementById('res-violations').textContent = `${strikes.length} lần`;
+
+      const scoreBox = document.getElementById('result-score-box');
+      const tag = document.getElementById('result-status-tag');
+      const disBox = document.getElementById('disqualified-box');
+
+      if (disqualified) {
+        scoreBox.className = 'result-score-badge danger';
+        tag.textContent = 'ĐÌNH CHỈ THI (0 ĐIỂM)';
+        tag.style.background = '#ffe4e6';
+        tag.style.color = '#e11d48';
+        disBox.classList.remove('hidden');
+      } else {
+        scoreBox.className = 'result-score-badge';
+        tag.textContent = score >= 5.0 ? 'ĐẠT YÊU CẦU' : 'CHƯA ĐẠT';
+        tag.style.background = '#dcfce7';
+        tag.style.color = '#15803d';
+        disBox.classList.add('hidden');
+      }
+
+      // Review list
+      const reviewBox = document.getElementById('review-list');
+      reviewBox.innerHTML = '<h3 style="font-size:14px; font-weight:800; margin:16px 0 8px 0;">Chi Tiết Từng Câu Hỏi:</h3>';
+
+      QUESTIONS.forEach((q, idx) => {
+        const a = userAnswers[idx];
+        const isForfeited = !!a?.forfeited;
+        let isCorrect = false;
+
+        if (!isForfeited) {
+          if (q.type === 'tf') {
+            isCorrect = q.statements.every(s => a?.tf && a.tf[s.key] === s.isTrue);
+          } else {
+            isCorrect = (a?.choice === q.correct);
+          }
+        }
+
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.style.marginBottom = '10px';
+        card.style.padding = '14px';
+
+        let statusText = '';
+        if (isForfeited) {
+          statusText = '<span style="background:#ffe4e6; color:#e11d48; padding:2px 8px; border-radius:6px; font-size:10px; font-weight:800;">🚨 Phạt 0đ (Thoát màn hình)</span>';
+        } else if (isCorrect) {
+          statusText = '<span style="background:#dcfce7; color:#15803d; padding:2px 8px; border-radius:6px; font-size:10px; font-weight:800;">✓ Đúng (+1.11đ)</span>';
+        } else {
+          statusText = '<span style="background:#f1f5f9; color:#64748b; padding:2px 8px; border-radius:6px; font-size:10px; font-weight:800;">Sai (0đ)</span>';
+        }
+
+        card.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+            <strong style="font-size:12px;">Câu ${idx + 1}</strong>
+            ${statusText}
+          </div>
+          <div style="font-size:12px; font-weight:700; color:#1e293b; margin-bottom:6px;">${q.question}</div>
+          <div style="font-size:11px; color:#475569; background:#f0f9ff; padding:8px 10px; border-radius:10px; border:1px solid #bae6fd;">
+            💡 <strong>Giải thích:</strong> ${q.exp}
+          </div>
+        `;
+        reviewBox.appendChild(card);
+      });
+    }
+
+    document.getElementById('btn-restart').onclick = () => {
+      viewResult.classList.add('hidden');
+      viewLobby.classList.remove('hidden');
+    };
+  </script>
+</body>
+</html>
