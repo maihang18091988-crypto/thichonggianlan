@@ -680,8 +680,12 @@
         </div>
       </div>
 
-      <!-- Question Box -->
-      <div class="question-box">
+      <!-- Question Box with Anti-Screenshot Watermark -->
+      <div class="question-box" oncontextmenu="return false;" ondragstart="return false;" style="user-select:none; -webkit-user-select:none; position:relative; overflow:hidden;">
+        <!-- Dynamic Anti-Leak Watermark -->
+        <div id="html-watermark" style="position:absolute; inset:0; pointer-events:none; opacity:0.04; display:flex; align-items:center; justify-content:center; transform:rotate(-25deg); font-weight:900; font-size:14px; text-align:center; line-height:2.5;">
+          HỌC SINH LÀM BÀI • EDUSECURE PROCTOR • GIÁM SÁT THI TRỰC TUYẾN
+        </div>
         <div class="question-header">
           <span class="q-badge" id="q-number-badge">Câu hỏi 1/9</span>
           <span style="font-size:11px; color:#64748b;" id="q-subject-text">Bài 3</span>
@@ -764,10 +768,15 @@
   <!-- FLOATING SIMULATION TRIGGER -->
   <div class="sim-dock" id="sim-dock">
     <div style="font-weight:800; color:#0369a1; margin-bottom:2px;">🧪 Test Giám Sát</div>
-    <div style="font-size:9px; color:#64748b; margin-bottom:4px;">Giả lập học sinh thoát màn hình:</div>
-    <button id="btn-sim-exit" class="btn btn-danger" style="width:100%; padding:4px 6px; font-size:10px;">
-      🚨 Test: Thoát App
-    </button>
+    <div style="font-size:9px; color:#64748b; margin-bottom:4px;">Thử nghiệm gian lận:</div>
+    <div style="display:flex; flex-direction:column; gap:4px;">
+      <button id="btn-sim-exit" class="btn btn-danger" style="width:100%; padding:5px 6px; font-size:10px;">
+        🚨 Test: Thoát App
+      </button>
+      <button id="btn-sim-shot" class="btn" style="width:100%; padding:5px 6px; font-size:10px; background:#f59e0b; color:white;">
+        📸 Test: Chụp Màn Hình
+      </button>
+    </div>
   </div>
 
   <!-- VIOLATION ALERT MODAL -->
@@ -1013,20 +1022,68 @@
       }
     };
 
-    // Auto listeners
+    // Auto listeners for anti-cheat & screenshot capture
     document.addEventListener('visibilitychange', () => {
       if (document.hidden && isActive) {
         onViolation('Chuyển tab hoặc ẩn cửa sổ làm bài');
       }
     });
+
     window.addEventListener('blur', () => {
       if (isActive) {
-        onViolation('Thoát màn hình sang ứng dụng khác (Zalo, Google...)');
+        onViolation('Thoát khỏi màn hình thi hoặc dùng chức năng chụp màn hình của máy');
+      }
+    });
+
+    // Keyboard Screenshot Detectors (PrintScreen, Win+Shift+S, Cmd+Shift+3/4, Ctrl+P)
+    document.addEventListener('keydown', (e) => {
+      if (!isActive) return;
+
+      // PrintScreen key
+      if (e.key === 'PrintScreen' || e.code === 'PrintScreen' || e.keyCode === 44) {
+        e.preventDefault();
+        try { navigator.clipboard?.writeText('CẢNH BÁO: Nghiêm cấm chụp màn hình đề thi!'); } catch (err) {}
+        onViolation('Sử dụng phím chụp màn hình (PrintScreen / PrtScn)');
+        return;
+      }
+
+      // Windows Snipping Tool (Win+Shift+S or Ctrl+Shift+S)
+      if ((e.metaKey || e.ctrlKey) && e.shiftKey && (e.key === 's' || e.key === 'S')) {
+        e.preventDefault();
+        try { navigator.clipboard?.writeText('CẢNH BÁO: Nghiêm cấm chụp màn hình!'); } catch (err) {}
+        onViolation('Mở phím tắt chụp màn hình (Snipping Tool)');
+        return;
+      }
+
+      // Mac screenshot (Cmd+Shift+3/4)
+      if (e.metaKey && e.shiftKey && (e.key === '3' || e.key === '4' || e.key === '5')) {
+        e.preventDefault();
+        onViolation('Chụp màn hình máy tính macOS (Command+Shift+3/4)');
+        return;
+      }
+
+      // Ctrl + P (Print / Save as PDF)
+      if ((e.ctrlKey || e.metaKey) && (e.key === 'p' || e.key === 'P')) {
+        e.preventDefault();
+        onViolation('Bấm lệnh In / Lưu đề thi ra tệp (Print / Save PDF)');
+        return;
+      }
+    });
+
+    document.addEventListener('keyup', (e) => {
+      if (!isActive) return;
+      if (e.key === 'PrintScreen' || e.code === 'PrintScreen' || e.keyCode === 44) {
+        try { navigator.clipboard?.writeText('CẢNH BÁO: Nghiêm cấm chụp màn hình!'); } catch (err) {}
+        onViolation('Phát hiện chụp ảnh màn hình máy tính');
       }
     });
 
     document.getElementById('btn-sim-exit').onclick = () => {
       onViolation(`Giả lập học sinh thoát màn hình tại Câu #${currentIdx + 1}`);
+    };
+
+    document.getElementById('btn-sim-shot').onclick = () => {
+      onViolation(`Phát hiện thao tác chụp màn hình (Screenshot) tại Câu #${currentIdx + 1}`);
     };
 
     // Start Exam
